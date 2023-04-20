@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>RomanArabicConvert.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+RomanArabicConvert.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">RomanArabicConvert {</span>
+    <span class="s0">public static int </span><span class="s1">romanToArabic(String input) {</span>
+        <span class="s1">String romanNumber = input.toUpperCase()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">result = </span><span class="s2">0</span><span class="s0">;</span>
+
+        <span class="s1">List&lt;RomanNumbers&gt; romanNumbers = RomanNumbers.getReverseSortedValues()</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">((romanNumber.length() &gt; </span><span class="s2">0</span><span class="s1">) &amp;&amp; (i &lt; romanNumbers.size())) {</span>
+            <span class="s1">RomanNumbers symbol = romanNumbers.get(i)</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(romanNumber.startsWith(symbol.name())) {</span>
+                <span class="s1">result += symbol.getValue()</span><span class="s0">;</span>
+                <span class="s1">romanNumber = romanNumber.substring(symbol.name().length())</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">i++</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(romanNumber.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s0">throw new </span><span class="s1">IllegalArgumentException(input + </span><span class="s3">&quot; не римское число&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">Calculator.check(result)</span><span class="s0">;</span>
+
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static </span><span class="s1">String arabicToRoman(</span><span class="s0">int </span><span class="s1">num) {</span>
+
+        <span class="s1">List&lt;RomanNumbers&gt; romanNumbers = RomanNumbers.getReverseSortedValues()</span><span class="s0">;</span>
+
+        <span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s1">StringBuilder sb = </span><span class="s0">new </span><span class="s1">StringBuilder()</span><span class="s0">;</span>
+
+        <span class="s0">while </span><span class="s1">((num &gt; </span><span class="s2">0</span><span class="s1">) &amp;&amp; (i &lt; romanNumbers.size())) {</span>
+            <span class="s1">RomanNumbers currentSymbol = romanNumbers.get(i)</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(currentSymbol.getValue() &lt;= num) {</span>
+                <span class="s1">sb.append(currentSymbol.name())</span><span class="s0">;</span>
+                <span class="s1">num -= currentSymbol.getValue()</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">i++</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">sb.toString()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
